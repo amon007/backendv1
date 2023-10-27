@@ -225,7 +225,11 @@ class PostsController {
           return res.status(404).json({ message: 'Category not found.' });
         }
         const productsInCategory = category.products;
-        return res.json(productsInCategory);
+        return res.json({
+          productsInCategory,
+          currentPage: page,
+          totalPage: Math.ceil(totalCount / limit),
+        });
       } catch (error) {
         console.log(error)
       }
@@ -234,7 +238,6 @@ class PostsController {
     async deleteCategory(req, res) {
       const {id} = req.query;
       try {
-        // const category = await Category.findByIdAndDelete(id);
         const category = await Category.findById(id);
         if(!category) {
           return res.status(404).json({message: 'Category not found.'});
@@ -247,13 +250,6 @@ class PostsController {
           console.log(error)
         }
 
-        // try {
-        //   fs.unlinkSync(category.photo);
-        //  } catch (error) {
-        //    if(error.code == 'ENOENT')console.log(error)
-        //    else return res.json(error)
-        //  }
-
         const ObjectId = mongoose.Types.ObjectId;
         const categoryId = new ObjectId(id);
         const products = await Category.findById(categoryId).populate('products');
@@ -265,7 +261,6 @@ class PostsController {
               } catch (error) {
                 console.log(error)
               }
-              // fs.unlinkSync(photo.url);
              }
             await Producte.findByIdAndDelete(product._id)
           }
