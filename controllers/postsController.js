@@ -226,14 +226,15 @@ class PostsController {
         }
         const productsInCategory = category.products;
 
-        const totalCount = await Category.findById(categoryId).products.length;
+        const totalCount = productsInCategory.length;
         const currentPage = Math.ceil((parseInt(skip) + 1) / parseInt(limit));
         const totalPages = Math.ceil(totalCount / parseInt(limit));
-
+        const categoryTest = await Category.findById(categoryId);
         return res.json({
       products: productsInCategory,
       currentPage,
       totalPages,
+      categoryTest
       });
       } catch (error) {
         console.log(error)
