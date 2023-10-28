@@ -225,16 +225,14 @@ class PostsController {
           return res.status(404).json({ message: 'Category not found.' });
         }
         const productsInCategory = category.products;
-
-        const totalCount = productsInCategory.length;
+        const categoryElement = await Category.findById(categoryId);
+        const totalCount = categoryElement.products.length;
         const currentPage = Math.ceil((parseInt(skip) + 1) / parseInt(limit));
         const totalPages = Math.ceil(totalCount / parseInt(limit));
-        const categoryTest = await Category.findById(categoryId);
         return res.json({
       products: productsInCategory,
       currentPage,
       totalPages,
-      categoryTest:categoryTest.products.length 
       });
       } catch (error) {
         console.log(error)
