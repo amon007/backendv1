@@ -234,6 +234,8 @@ class PostsController {
       products: productsInCategory,
       currentPage,
       totalPages,
+      totalCount,
+      limit
       });
       } catch (error) {
         console.log(error)
