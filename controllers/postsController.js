@@ -226,7 +226,7 @@ class PostsController {
         }
         const productsInCategory = category.products;
 
-        const totalCount = productsInCategory.length;
+        const totalCount = await (Category.findById(categoryId).populate('products')).length;
         const currentPage = Math.ceil((parseInt(skip) + 1) / parseInt(limit));
         const totalPages = Math.ceil(totalCount / parseInt(limit));
 
@@ -234,9 +234,6 @@ class PostsController {
       products: productsInCategory,
       currentPage,
       totalPages,
-      totalCount,
-      limit,
-      category
       });
       } catch (error) {
         console.log(error)
