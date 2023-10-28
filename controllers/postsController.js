@@ -221,13 +221,13 @@ class PostsController {
         path: 'products',
         options: {skip: parseInt(skip), limit: parseInt(limit)}
         });
+        const totalCount = await Producte.countDocuments();
         if (!category) {
           return res.status(404).json({ message: 'Category not found.' });
         }
         const productsInCategory = category.products;
         return res.json({
           productsInCategory,
-          currentPage: page,
           totalPage: Math.ceil(totalCount / limit),
         });
       } catch (error) {
