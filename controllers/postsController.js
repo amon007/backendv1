@@ -226,7 +226,7 @@ class PostsController {
         }
         const productsInCategory = category.products;
 
-        const totalCount = await (Category.findById(categoryId).populate('products')).length;
+        const totalCount = await Category.findById(categoryId).products.length;
         const currentPage = Math.ceil((parseInt(skip) + 1) / parseInt(limit));
         const totalPages = Math.ceil(totalCount / parseInt(limit));
 
