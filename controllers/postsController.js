@@ -275,6 +275,78 @@ class PostsController {
       }
     }
 
+    async changeCategory(req, res) {
+      const { categoryId, name } = req.body;
+      const image = req.files.image;
+     try {
+        if (!categoryId) {
+          return res.status(400).json({ message: 'Category ID is required for updating.' });
+        }
+    
+        const category = await Category.findById(categoryId);
+    
+        if (!category) {
+          return res.status(404).json({ message: 'Category not found.' });
+        }
+    
+        if (name) {
+          category.name = name;
+        }
+    
+        if (image) {
+          try {
+            const storageRef = ref(storage, category.photo);
+            await deleteObject(storageRef);
+          } catch (error) {
+            console.log(error)
+          }
+          const storageRef = ref(storage, uuid.v4() + image.name);
+          await uploadBytes(storageRef, image.data);
+          const imageUrl = await getDownloadURL(storageRef);
+          category.photo = imageUrl;
+        }
+    
+        await category.save();
+    
+        return res.status(200).json({ message: 'Category updated successfully.' });
+     } catch (error) {
+        console.log(error)
+     }
+    }
+
+    async changeProduct(req, res) {
+      const { productId, title, description, price} = req.body;
+
+      try {
+        if(!productId) {
+          return res.status(400).json({message: 'Product ID is required for updating.'});
+        }
+  
+        const product = await Producte.findById(productId);
+
+        if(!product) {
+          return res.status(404).json({message: "Product not found."});
+        }
+
+        if(title) {
+          product.title = title;
+        }
+
+        if(description) {
+          product.description = description;
+        }
+
+        if(description) {
+          product.price = price;
+        }
+        await product.save();
+        return res.status(200).json({ message: 'Product updated successfully.' });
+      } catch (error) {
+          console.log(error)
+      }
+
+    }
+
 }
 
 module.exports = new PostsController();
