@@ -154,6 +154,10 @@ class PostsController {
       try {
           const { name } = req.body;
           const file = req.files.image;
+          if (!file && !name) {
+            return res.status(400).json({ message: 'Test error' });
+          }
+
           if (!file) {
             return res.status(400).json({ message: 'File not uploaded. Please choose a file to upload.' });
           }
@@ -171,14 +175,6 @@ class PostsController {
               photo: url
         });
         newCategory.save();
-        //   const fileName = uuid.v4() + '.jpg';
-        //   const filePath = 'static/' + fileName; 
-        //   file.mv(filePath, (err) => {
-        //   if (err) {
-        //   return res.status(500).json({ message: 'File upload failed.' });
-        //  }
-        // // })
-    
           return res.status(201).json({ message: 'Post created successfully.' });
         } catch (error) {
           return res.json(error);
