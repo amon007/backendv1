@@ -12,16 +12,16 @@ const postRoutes = require('./routes/posts');
 
 
 const app = express()
-app.use(
-    cors(
-    //   {
-    //   origin: '*', 
-    //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    //   credentials: true,
-    //   optionSuccessStatus:200,
-    // }
-    )
-  );
+// app.use(
+//     cors(
+//     //   {
+//     //   origin: '*', 
+//     //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     //   credentials: true,
+//     //   optionSuccessStatus:200,
+//     // }
+//     )
+//   );
 // function cors(req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "*");
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
