@@ -24,7 +24,7 @@ app.use(
   function cors (req, res, next) {
 
     // Разрешаем запросы с указанного домена
-    res.header('Access-Control-Allow-Origin', 'http://localhost:5173') 
+    res.header('Access-Control-Allow-Origin', '*') 
   
     // Разрешаем эти методы  
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
