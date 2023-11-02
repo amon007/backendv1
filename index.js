@@ -21,6 +21,22 @@ app.use(
     })
   );
 
+  function cors (req, res, next) {
+
+    // Разрешаем запросы с указанного домена
+    res.header('Access-Control-Allow-Origin', 'http://localhost:5173') 
+  
+    // Разрешаем эти методы  
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  
+    // Разрешаем эти заголовки
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  
+    // Завершаем обработку
+    res.sendStatus(200)
+  
+  }
+
 app.use(express.json())
 app.use(fileUpload({}))
 app.use(express.static('static'))
