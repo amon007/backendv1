@@ -278,7 +278,7 @@ class PostsController {
         if (!categoryId) {
           return res.status(400).json({ message: 'Category ID is required for updating.' });
         }
-    
+        return res.josn({message: image})
         const category = await Category.findById(categoryId);
     
         if (!category) {
@@ -288,7 +288,7 @@ class PostsController {
         if (name) {
           category.name = name;
         }
-    
+        
         if (image) {
           try {
             const storageRef = ref(storage, category.photo);
