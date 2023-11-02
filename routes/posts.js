@@ -15,6 +15,6 @@ router.delete('/deletecategory', controller.deleteCategory)
 router.get('/getallcategory', controller.getAllCategory)
 router.get('/getcategoryproducts', controller.getCategoryProducts)
 router.get('/getproductsincategory', controller.getAllProductsInCategory)
-router.put('/update/category', controller.changeCategory)
+router.post('/update/category', controller.changeCategory)
 router.put('/update/product', controller.changeProduct)
 module.exports = router
