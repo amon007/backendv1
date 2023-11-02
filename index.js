@@ -12,34 +12,17 @@ const postRoutes = require('./routes/posts');
 
 
 const app = express()
-// app.use(
-//     cors(
-//     //   {
-//     //   origin: '*', 
-//     //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     //   credentials: true,
-//     //   optionSuccessStatus:200,
-//     // }
-//     )
-//   );
-// function cors(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-//        next();
-//  }
+app.use(
+    cors(
+      {
+      origin: '*', 
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      credentials: true,
+      optionSuccessStatus:200,
+    }
+    )
+  );
 
- app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-  // allow preflight
-  if (req.method === 'OPTIONS') {
-      res.send(200);
-  } else {
-      next();
-  }
-});
 
 app.use(express.json())
 app.use(fileUpload({}))
