@@ -273,12 +273,12 @@ class PostsController {
 
     async changeCategory(req, res) {
       const { categoryId, name } = req.body;
-      const image = req.files.image;
+      // const image = req.files.image;
      try {
         if (!categoryId) {
           return res.status(400).json({ message: 'Category ID is required for updating.' });
         }
-        return res.josn({message: image})
+
         const category = await Category.findById(categoryId);
     
         if (!category) {
@@ -289,18 +289,18 @@ class PostsController {
           category.name = name;
         }
         
-        if (image) {
-          try {
-            const storageRef = ref(storage, category.photo);
-            await deleteObject(storageRef);
-          } catch (error) {
-            console.log(error)
-          }
-          const storageRef = ref(storage, uuid.v4() + image.name);
-          await uploadBytes(storageRef, image.data);
-          const imageUrl = await getDownloadURL(storageRef);
-          category.photo = imageUrl;
-        }
+        // if (image) {
+        //   try {
+        //     const storageRef = ref(storage, category.photo);
+        //     await deleteObject(storageRef);
+        //   } catch (error) {
+        //     console.log(error)
+        //   }
+        //   const storageRef = ref(storage, uuid.v4() + image.name);
+        //   await uploadBytes(storageRef, image.data);
+        //   const imageUrl = await getDownloadURL(storageRef);
+        //   category.photo = imageUrl;
+        // }
     
         await category.save();
     
