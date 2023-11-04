@@ -298,8 +298,9 @@ class PostsController {
 
   async deleteImageInCategory(req, res) {
     const { productId, url } = req.body;
-
+    
     try {
+      return res.json(productId);
       if (!productId) {
         return res
           .status(400)
