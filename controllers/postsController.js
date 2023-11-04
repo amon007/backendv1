@@ -307,7 +307,6 @@ class PostsController {
       }
 
       const product = await Producte.findById(productId);
-      return res.json({product})
       if (!product) {
         return res.status(404).json({ message: "Product not found." });
       }
@@ -319,7 +318,7 @@ class PostsController {
       }
 
       if (product.product.length > 1) {
-        product.product = product.product.filter((el) => el.url !== url);
+        product.photos = product.photos.filter((el) => el.url !== url);
         try {
           const storageRef = ref(storage, url);
           await deleteObject(storageRef);
