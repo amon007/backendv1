@@ -317,7 +317,7 @@ class PostsController {
           .json({ message: "Photo URL is required for deleting." });
       }
 
-      if (product.product.length > 1) {
+      if (product.photos.length > 1) {
         product.photos = product.photos.filter((el) => el.url !== url);
         try {
           const storageRef = ref(storage, url);
