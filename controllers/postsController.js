@@ -317,6 +317,10 @@ class PostsController {
           .json({ message: "Photo URL is required for deleting." });
       }
 
+      if(!(product.photos.find(el=> el.url == url))) {
+        return res.status(404).json({message: "Photo not found."});
+      }
+
       if (product.photos.length > 1) {
         product.photos = product.photos.filter((el) => el.url !== url);
         try {
