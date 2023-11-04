@@ -340,7 +340,7 @@ class PostsController {
 
       await product.save();
 
-      return res.status(200).json("Photo deleted successfully");
+      return res.status(200).json({message: "Photo deleted successfully"});
     } catch (error) {
       console.log(error);
     }
