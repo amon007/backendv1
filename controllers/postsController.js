@@ -307,7 +307,7 @@ class PostsController {
       }
 
       const product = await Producte.findById(productId);
-
+      return res.json({product})
       if (!product) {
         return res.status(404).json({ message: "Product not found." });
       }
