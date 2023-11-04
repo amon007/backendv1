@@ -319,7 +319,7 @@ class PostsController {
       }
 
       if (product.product.length > 1) {
-        product.product = product.product.filter((el) => el !== url);
+        product.product = product.product.filter((el) => el.url !== url);
         try {
           const storageRef = ref(storage, url);
           await deleteObject(storageRef);
