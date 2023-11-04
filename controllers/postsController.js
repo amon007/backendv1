@@ -300,7 +300,7 @@ class PostsController {
     const { productId, url } = req.body;
     
     try {
-      return res.json(productId);
+      return res.json({message: productId});
       if (!productId) {
         return res
           .status(400)
