@@ -429,7 +429,9 @@ class PostsController {
         };
         photoArray.push(photo);
       }
-      product.photos = [...product.photos,...photoArray];
+      if(photoArray.length){
+        product.photos = [...product.photos,...photoArray];
+      }
 
       
       await product.save();
