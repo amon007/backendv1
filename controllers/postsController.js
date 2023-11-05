@@ -414,7 +414,7 @@ class PostsController {
         product.price = price;
       }
 
-      if(Object.keys(req.files).length) {
+
       const photoArray = [];
       let img = req.files;
       for (let key in img) {
@@ -430,7 +430,7 @@ class PostsController {
         photoArray.push(photo);
       }
       product.photos = [...product.photos,...photoArray];
-      }
+
       
       await product.save();
       return res.status(200).json({ message: "Product updated successfully." });
