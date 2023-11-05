@@ -10,7 +10,7 @@ router.delete('/deleteproduct',controller.deleteProduct)
 router.get('/getallproducts', controller.getAllProducts)
 router.get('/getproductbyid', controller.getProductById)
 //authMiddleware,roleMiddleware(['ADMIN']),
-router.post('/addcategory', controller.addCategory)
+router.post('/addcategory',controller.addCategory)
 router.delete('/deletecategory', controller.deleteCategory)
 router.get('/getallcategory', controller.getAllCategory)
 router.get('/getcategoryproducts', controller.getCategoryProducts)

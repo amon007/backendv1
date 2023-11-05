@@ -46,9 +46,6 @@ class PostsController {
       }
       const photoArray = [];
       let img = req.files;
-      // if(!Array.isArray(img)){
-      //   img = [req.files.image];
-      // }
       for (let key in img) {
         const file = img[key];
         console.log(file);
@@ -416,6 +413,25 @@ class PostsController {
       if (description) {
         product.price = price;
       }
+
+      if(Object.keys(req.files).length) {
+      const photoArray = [];
+      let img = req.files;
+      for (let key in img) {
+        const file = img[key];
+        const storageRef = ref(storage, uuid.v4() + file.name);
+        await uploadBytes(storageRef, file.data);
+        const url = await getDownloadURL(storageRef);
+        const photo = {
+          url: url,
+          description: "Image description",
+          isMain: false,
+        };
+        photoArray.push(photo);
+      }
+      product.photos = [...product.photos,...photoArray];
+      }
+      
       await product.save();
       return res.status(200).json({ message: "Product updated successfully." });
     } catch (error) {
