@@ -388,7 +388,6 @@ class PostsController {
 
   async changeProduct(req, res) {
     const { productId, title, description, price } = req.body;
-  
     try {
       if (!productId) {
         return res
@@ -418,7 +417,6 @@ class PostsController {
       const img = req.files;
       for (let key in img) {
         const file = img[key];
-        console.log(file);
         const storageRef = ref(storage, uuid.v4() + file.name);
         await uploadBytes(storageRef, file.data);
         const url = await getDownloadURL(storageRef);
