@@ -416,19 +416,18 @@ class PostsController {
   
       const photoArray = [];
       const img = req.files;
-      for (const key in img) {
-        if (img.hasOwnProperty(key)) {
-          const file = img[key];
-          const storageRef = ref(storage, uuid.v4() + file.name);
-          await uploadBytes(storageRef, file.data);
-          const url = await getDownloadURL(storageRef);
-          const photo = {
-            url: url,
-            description: "Image description",
-            isMain: false,
-          };
-          photoArray.push(photo);
-        }
+      for (let key in img) {
+        const file = img[key];
+        console.log(file);
+        const storageRef = ref(storage, uuid.v4() + file.name);
+        await uploadBytes(storageRef, file.data);
+        const url = await getDownloadURL(storageRef);
+        const photo = {
+          url: url,
+          description: "Image description",
+          isMain: false,
+        };
+        photoArray.push(photo);
       }
       if (photoArray.length > 0) {
         product.photos = [...product.photos, ...photoArray];
@@ -438,7 +437,7 @@ class PostsController {
       return res.status(200).json({ message: "Product updated successfully." });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ message: "Internal Server Error" , error}); 
+      return res.status(500).json({ message: "Internal Server Error"}); 
     }
   }
   
