@@ -388,58 +388,60 @@ class PostsController {
 
   async changeProduct(req, res) {
     const { productId, title, description, price } = req.body;
-
+  
     try {
       if (!productId) {
         return res
           .status(400)
           .json({ message: "Product ID is required for updating." });
       }
-
+  
       const product = await Producte.findById(productId);
-
+  
       if (!product) {
         return res.status(404).json({ message: "Product not found." });
       }
-
+  
       if (title) {
         product.title = title;
       }
-
+  
       if (description) {
         product.description = description;
       }
-
-      if (description) {
+  
+      if (price) { 
         product.price = price;
       }
-
-
+  
       const photoArray = [];
-      let img = req.files;
-      for (let key in img) {
-        const file = img[key];
-        const storageRef = ref(storage, uuid.v4() + file.name);
-        await uploadBytes(storageRef, file.data);
-        const url = await getDownloadURL(storageRef);
-        const photo = {
-          url: url,
-          description: "Image description",
-          isMain: false,
-        };
-        photoArray.push(photo);
+      const img = req.files;
+      for (const key in img) {
+        if (img.hasOwnProperty(key)) {
+          const file = img[key];
+          const storageRef = ref(storage, uuid.v4() + file.name);
+          await uploadBytes(storageRef, file.data);
+          const url = await getDownloadURL(storageRef);
+          const photo = {
+            url: url,
+            description: "Image description",
+            isMain: false,
+          };
+          photoArray.push(photo);
+        }
       }
-      if(photoArray.length){
-        product.photos = [...product.photos,...photoArray];
+      if (photoArray.length > 0) {
+        product.photos = [...product.photos, ...photoArray];
       }
-
-      
+  
       await product.save();
       return res.status(200).json({ message: "Product updated successfully." });
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      return res.status(500).json({ message: "Internal Server Error" }); 
     }
   }
+  
 }
 
 module.exports = new PostsController();
